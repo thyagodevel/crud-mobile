@@ -14,39 +14,54 @@ import styles from './styles/styles';
 let data = [
   {
     id: 'vhsdkjs',
-    title: 'teste 1'
+    title: 'teste 1',
+    name: 'Fulano',
+    tel: '93848573',
+    email: 'e9jdei@gmail.com'
   },
   {
     id: 'soighj',
-    title: 'teste 2'
+    title: 'teste 2',
+    name: 'Fulano',
+    tel: '93848573',
+    email: 'e9jdei@gmail.com'
   },
   {
     id: 'woeisjc',
-    title: 'teste 3'
+    title: 'teste 3',
+    name: 'Fulano',
+    tel: '93848573',
+    email: 'e9jdei@gmail.com'
   },
   {
     id: 'woeisjc',
-    title: 'teste 3'
+    title: 'teste 3',
+    name: 'Fulano',
+    tel: '93848573',
+    email: 'e9jdei@gmail.com'
   },
   {
     id: 'woeisjc',
-    title: 'teste 3'
+    title: 'teste 3',
+    name: 'Fulano',
+    tel: '93848573',
+    email: 'e9jdei@gmail.com'
   },
 ];
 
-const Item = ({ title }) => (
+const Item = ({ name, tel, email }) => (
   <View style={styles.containerLista} >
     <View style={styles.containerTituloLista} >
       <Text style={styles.lista} >Nome: </Text>
-      <Text style={styles.lista} >Fulano</Text>
+      <Text style={styles.lista} >{name}</Text>
     </View>
     <View style={styles.containerTituloLista} >
       <Text style={styles.lista} >Telefone: </Text>
-      <Text style={styles.lista} >666666666</Text>
+      <Text style={styles.lista} >{tel}</Text>
     </View>
     <View style={styles.containerTituloLista} >
       <Text style={styles.lista} >E-mail: </Text>
-      <Text style={styles.lista} >jsdfijks@gmail.com</Text>
+      <Text style={styles.lista} >{email}</Text>
     </View>
     <View style={styles.containerOpcoes} >
       <TouchableOpacity style={[styles.botao, { backgroundColor: 'blue' }]} >
@@ -67,7 +82,12 @@ const Item = ({ title }) => (
 function App(){
 
   const renderItem = ({ item }) => (
-    <Item title={item.title} />
+    <Item
+      title={item.title}
+      name={item.name}
+      tel={item.tel}
+      email={item.email}
+    />
   );
 
   return(
