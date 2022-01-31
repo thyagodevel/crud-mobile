@@ -13,14 +13,21 @@ import data from './testeDados';
 
 function App(){
   const [clientes, setClientes] = useState([]);
+  const [nomeCliente, setNomeCliente] = useState('');
+  const [phoneCliente, setPhoneCliente] = useState('');
+  const [emailCliente, setEmailCliente] = useState('');
 
-  useEffect(() => {
-    api.get('/customers').then((response) => {
-      setClientes(response.data);
-    });
-  }, []);
+  api.get('/customers').then((response) => {
+    setClientes(response.data);
+  });
 
-
+  function salvarCliente(){
+    api.post('/customers', {
+      name: `${nomeCliente}`,
+      phone: `${phoneCliente}`,
+      email: `${emailCliente}`
+    }).then((response) => console.log(response.data));
+  }
 
   function ComponentCliente({ name, phone, email }){
     return (
@@ -67,6 +74,7 @@ function App(){
               style={styles.input}
               placeholder='Digite o nome'
               placeholderTextColor={'#ffffff'}
+              onChangeText={setNomeCliente}
             />
           </View>
           <View style={styles.containerAdicionarInfos} >
@@ -75,6 +83,7 @@ function App(){
               style={styles.input}
               placeholder='Digite o telefone'
               placeholderTextColor={'#ffffff'}
+              onChangeText={setPhoneCliente}
             />
           </View>
           <View style={styles.containerAdicionarInfos} >
@@ -83,10 +92,14 @@ function App(){
               style={styles.input}
               placeholder='Digite o e-mail'
               placeholderTextColor={'#ffffff'}
+              onChangeText={setEmailCliente}
             />
           </View>
         </View>
-        <TouchableOpacity style={styles.botaoAdicionar} >
+        <TouchableOpacity
+          style={styles.botaoAdicionar}
+          onPress={salvarCliente}
+        >
           <View  >
             <Text style={[styles.lista, { color: '#ffffff', textAlign: 'center' }]} >Salvar</Text>
           </View>
