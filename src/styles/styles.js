@@ -16,13 +16,7 @@ const styles = StyleSheet.create({
     },
     containerAdicionar:{
         padding: 10,
-        borderWidth: 2,
-        borderColor: 'grey',
-        borderRadius: 3,
         margin: 20,
-    },
-    containerAdicionarInfos:{
-        
     },
     tituloAdicionar:{
         fontSize: 15,
@@ -34,8 +28,9 @@ const styles = StyleSheet.create({
         borderColor: 'grey',
         borderRadius: 3,
         height: 30,
-        width: '90%',
         padding: 2,
+        marginBottom: 5,
+        backgroundColor: '#cccccc',
     },
     botaoAdicionar:{
         width: 60,
@@ -52,9 +47,7 @@ const styles = StyleSheet.create({
     containerConteudo:{
         flex: 4,
         margin: 20,
-        borderWidth: 2,
-        borderColor: 'grey',
-        borderRadius: 3,
+
     },
     containerLista:{
         padding: 5,

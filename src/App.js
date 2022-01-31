@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   View,
@@ -6,89 +6,53 @@ import {
   TextInput,
   FlatList,
   TouchableOpacity,
-
 } from 'react-native';
-
 import styles from './styles/styles';
-
-let data = [
-  {
-    id: 'vhsdkjs',
-    title: 'teste 1',
-    name: 'Fulano',
-    tel: '93848573',
-    email: 'e9jdei@gmail.com'
-  },
-  {
-    id: 'soighj',
-    title: 'teste 2',
-    name: 'Fulano',
-    tel: '93848573',
-    email: 'e9jdei@gmail.com'
-  },
-  {
-    id: 'woeisjc',
-    title: 'teste 3',
-    name: 'Fulano',
-    tel: '93848573',
-    email: 'e9jdei@gmail.com'
-  },
-  {
-    id: 'woeisjc',
-    title: 'teste 3',
-    name: 'Fulano',
-    tel: '93848573',
-    email: 'e9jdei@gmail.com'
-  },
-  {
-    id: 'woeisjc',
-    title: 'teste 3',
-    name: 'Fulano',
-    tel: '93848573',
-    email: 'e9jdei@gmail.com'
-  },
-];
-
-const Item = ({ name, tel, email }) => (
-  <View style={styles.containerLista} >
-    <View style={styles.containerTituloLista} >
-      <Text style={styles.lista} >Nome: </Text>
-      <Text style={styles.lista} >{name}</Text>
-    </View>
-    <View style={styles.containerTituloLista} >
-      <Text style={styles.lista} >Telefone: </Text>
-      <Text style={styles.lista} >{tel}</Text>
-    </View>
-    <View style={styles.containerTituloLista} >
-      <Text style={styles.lista} >E-mail: </Text>
-      <Text style={styles.lista} >{email}</Text>
-    </View>
-    <View style={styles.containerOpcoes} >
-      <TouchableOpacity style={[styles.botao, { backgroundColor: 'blue' }]} >
-        <View>
-          <Text style={[styles.lista, { color: '#ffffff' }]} >Editar</Text>
-        </View>
-      </TouchableOpacity>
-      <TouchableOpacity style={[styles.botao, { backgroundColor: 'red' }]} >
-        <View>
-          <Text style={[styles.lista, { color: '#ffffff' }]} >Excluir</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
-    
-  </View>
-);
+import api from './services/api';
+import data from './testeDados';
 
 function App(){
+  const [clientes, setClientes] = useState([]);
 
-  const renderItem = ({ item }) => (
-    <Item
-      title={item.title}
-      name={item.name}
-      tel={item.tel}
-      email={item.email}
-    />
-  );
+  useEffect(() => {
+    api.get('/customers').then((response) => {
+      setClientes(response.data);
+    });
+  }, []);
+
+
+
+  function ComponentCliente({ name, phone, email }){
+    return (
+      <View style={styles.containerLista} >
+        <View style={styles.containerTituloLista} >
+          <Text style={styles.lista} >Nome: </Text>
+          <Text style={styles.lista} >{name}</Text>
+        </View>
+        <View style={styles.containerTituloLista} >
+          <Text style={styles.lista} >Telefone: </Text>
+          <Text style={styles.lista} >{phone}</Text>
+        </View>
+        <View style={styles.containerTituloLista} >
+          <Text style={styles.lista} >E-mail: </Text>
+          <Text style={styles.lista} >{email}</Text>
+        </View>
+        <View style={styles.containerOpcoes} >
+          <TouchableOpacity style={[styles.botao, { backgroundColor: 'blue' }]} >
+            <View>
+              <Text style={[styles.lista, { color: '#ffffff' }]} >Editar</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.botao, { backgroundColor: 'red' }]} >
+            <View>
+              <Text style={[styles.lista, { color: '#ffffff' }]} >Excluir</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+
+  };
 
   return(
     <SafeAreaView style={styles.container} >
@@ -102,6 +66,7 @@ function App(){
             <TextInput
               style={styles.input}
               placeholder='Digite o nome'
+              placeholderTextColor={'#ffffff'}
             />
           </View>
           <View style={styles.containerAdicionarInfos} >
@@ -109,6 +74,7 @@ function App(){
             <TextInput
               style={styles.input}
               placeholder='Digite o telefone'
+              placeholderTextColor={'#ffffff'}
             />
           </View>
           <View style={styles.containerAdicionarInfos} >
@@ -116,6 +82,7 @@ function App(){
             <TextInput
               style={styles.input}
               placeholder='Digite o e-mail'
+              placeholderTextColor={'#ffffff'}
             />
           </View>
         </View>
@@ -127,8 +94,8 @@ function App(){
       </View>
       <View style={styles.containerConteudo} >
         <FlatList
-          data={data}
-          renderItem={renderItem}
+          data={clientes}
+          renderItem={({ item }) => <ComponentCliente name={item.name} phone={item.phone} email={item.email} /> }
           keyExtractor={item => item.id}
         />
       </View>
